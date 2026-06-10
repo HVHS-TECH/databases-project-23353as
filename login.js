@@ -1,0 +1,89 @@
+function fb_login() {
+
+  firebase.auth().onAuthStateChanged((user) => {
+
+    if (user) {
+
+      console.log("Logged in");
+
+
+      document.getElementById("userPfp").src = user.photoURL;
+
+    } else {
+
+      console.log("Not logged in");
+
+      var provider =
+        new firebase.auth.GoogleAuthProvider();
+
+      provider.addScope('profile');
+      provider.addScope('email');
+
+      firebase.auth()
+        .signInWithPopup(provider)
+        .then(function (result) {
+
+          var user = result.user;
+
+          console.log(user);
+
+          document.getElementById("userPfp").src = user.photoURL;
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  });
+}
+
+
+function writeForm() {
+
+  const gameName =
+    document.getElementById("gameName").value;
+
+  const age =
+    document.getElementById("age").value;
+
+
+  // Get logged-in user
+  let user = firebase.auth().currentUser;
+
+  // Make sure user is logged in
+  if (!user) {
+
+    alert("Please log in first.");
+    return;
+
+  }
+
+  if (!gameName || !age) {
+
+    alert("Please fill all the boxes.");
+    return;
+
+  }
+
+  let userID = user.uid;
+  let userImage = user.photoURL;
+  let userEmail = user.email
+
+  console.log(userID);
+
+
+  firebase.database().ref("userInfo/" + userID).set({
+
+    gameName: gameName  ,
+    age: age,
+    email: userEmail,
+    profilePicture: userImage,
+    
+
+  });
+
+  console.log("Data sent!");
+
+  document.getElementById("statusMessage").innerHTML =
+    "Form submitted!";
+}

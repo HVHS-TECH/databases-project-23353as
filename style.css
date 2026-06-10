@@ -8,9 +8,41 @@ html {
 }
 
 html, body{
-    background-color: #b97bb6;
+    background-color: #8772B7;
     text-align: center;
     padding: 0;
     margin: 0;
     font-family: 'Poppins',sans-serif;
+    
+}
+
+nav {
+    background-color: #422C6C;
+    padding: 5px 25px;
+    display: flex;
+    color: #ffffff;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border: 2px solid black;
+    text-decoration: none;
+    align-items: center;
+}
+
+nav a{
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 25px;
+    padding: 25px 25px;
+    display: inline-block;
+    margin-left: auto;
+}
+
+#userPfp {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 20px solid #ffe6eb;
 }
