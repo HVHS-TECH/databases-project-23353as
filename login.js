@@ -46,7 +46,6 @@ function writeForm() {
   const age =
     document.getElementById("age").value;
 
-
   // Get logged-in user
   let user = firebase.auth().currentUser;
 
@@ -67,18 +66,18 @@ function writeForm() {
 
   let userID = user.uid;
   let userImage = user.photoURL;
-  let userEmail = user.email
-
-  console.log(userID);
+  let userEmail = user.email;
+  let userDisplayName = user.displayName;
 
 
   firebase.database().ref("userInfo/" + userID).set({
 
-    gameName: gameName  ,
+    gameName: gameName,
     age: age,
     email: userEmail,
     profilePicture: userImage,
-    
+    displayName: userDisplayName
+
 
   });
 

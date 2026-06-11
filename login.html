@@ -26,19 +26,30 @@
 </nav>
 
 <body>
-    <button onclick="fb_login()">Login with Google</button>
+
+    <img id="userPfp" src="" alt="Profile Picture">
+
     <script src="login.js"></script>
+    <div class="form-container">
+        <h2>Hello</h2>
 
-    <form id="">
-      <label for="gameName">Your Name:</label>
-      <input type="text" id="name" name="gameName" required />
 
-      <label for="age">Age:</label>
-      <input type="number" id="age" name="age" required />
+        <button onclick="fb_login()">Login with Google</button>
 
-    </form>
+        <form>
+            <div class="input-area">
+                <label for="gameName">Your Name:</label>
+                <input type="text" id="gameName" name="gameName" required />
+            </div>
 
-    <button onclick="writeForm()">Submit</button>
+            <div class="input-area">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required />
+            </div>
+        </form>
+
+        <button onclick="writeForm()">Submit</button>
+    </div>
 
 </body>
 

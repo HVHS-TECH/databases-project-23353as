@@ -38,11 +38,87 @@ nav a{
 
 #userPfp {
   position: fixed;
-  top: 10px;
+  top: 20px;
   right: 10px;
   width: 50px;
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
-  border: 20px solid #ffe6eb;
+  border: 2px solid #422C6C;
+}
+
+.form-container {
+  background: #ffffff;
+  width: 80%;
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  text-align: left;
+}
+
+.form-container h2{
+  text-align: left;
+  color: #422C6C;
+  margin-bottom: 25px;
+}
+
+.input-area {
+  margin-bottom: 20px;
+}
+
+.input-area label{
+  display: block;
+    margin-bottom: 8px;
+    color: #422C6C;
+    font-weight: bold;
+}
+
+.input-area input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 0.3rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    border-color: #8772B7;
+    outline: none;
+    box-shadow: 0 0 8px rgba(135,114,183,0.4);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: #422C6C;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    background: #5a3f8f;
+    transform: translateY(-2px);
+}
+
+button:not(.submit-btn) {
+    background: white;
+    color: #422C6C;
+    border: 2px solid #422C6C;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+button:not(.submit-btn):hover {
+    background: #422C6C;
+    color: white;
 }
