@@ -122,3 +122,15 @@ button:not(.submit-btn):hover {
     background: #422C6C;
     color: white;
 }
+
+.login-btn {
+  background: white;
+  color: #422C6C;
+  border: 2px solid #422C6C;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+

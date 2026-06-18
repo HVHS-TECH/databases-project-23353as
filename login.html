@@ -34,12 +34,12 @@
         <h2>Hello</h2>
 
 
-        <button onclick="fb_login()">Login with Google</button>
+        <button class="login-btn" onclick="fb_login()">Login with Google</button>
 
         <form>
             <div class="input-area">
                 <label for="gameName">Your Name:</label>
-                <input type="text" id="gameName" name="gameName" required />
+                <input type="text" id="gameName" name="gameName" maxlength="20" required />
             </div>
 
             <div class="input-area">
@@ -48,7 +48,9 @@
             </div>
         </form>
 
-        <button onclick="writeForm()">Submit</button>
+        <button class="submit-btn" onclick="writeForm()">Submit</button>
+
+        <p id="statusMessage"></p>
     </div>
 
 </body>

@@ -38,7 +38,7 @@ function fb_login() {
 }
 
 
-function writeForm() {
+async function writeForm() {
 
   const gameName =
     document.getElementById("gameName").value;
@@ -69,8 +69,9 @@ function writeForm() {
   let userEmail = user.email;
   let userDisplayName = user.displayName;
 
+  try{ 
 
-  firebase.database().ref("userInfo/" + userID).set({
+  await firebase.database().ref("userInfo/" + userID).set({
 
     gameName: gameName,
     age: age,
@@ -83,6 +84,11 @@ function writeForm() {
 
   console.log("Data sent!");
 
-  document.getElementById("statusMessage").innerHTML =
-    "Form submitted!";
+  window.location.href='index.html';
+
+} catch(error) {
+
+  console.error(error);
+  alert("Failed to save data.")
+}
 }
