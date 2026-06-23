@@ -123,14 +123,33 @@ button:not(.submit-btn):hover {
     color: white;
 }
 
-.login-btn {
-  background: white;
-  color: #422C6C;
-  border: 2px solid #422C6C;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 20px;
-  margin-bottom: 50px;
+#loggedInNav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
 }
 
+#navPfp {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffffff;
+}
+
+#loggedInNav button{
+  background: white;
+  color: #422C6C;
+  border: 2px solid #ffffff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+#loggedInNav button{
+  background: #422C6C;
+  color: white;
+}
