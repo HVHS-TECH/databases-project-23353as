@@ -7,7 +7,11 @@ function fb_login() {
       console.log("Logged in");
 
 
-      document.getElementById("userPfp").src = user.photoURL;
+      const pfp = document.getElementById("userPfp");
+
+      if (pfp) {
+        pfp.src = user.photoURL;
+      }
 
     } else {
 
@@ -43,7 +47,7 @@ async function writeForm() {
   const gameName =
     document.getElementById("gameName").value;
 
-  const age =
+  const userAge =
     document.getElementById("age").value;
 
   // Get logged-in user
@@ -57,7 +61,7 @@ async function writeForm() {
 
   }
 
-  if (!gameName || !age) {
+  if (!gameName || !userAge) {
 
     alert("Please fill all the boxes.");
     return;
@@ -69,26 +73,26 @@ async function writeForm() {
   let userEmail = user.email;
   let userDisplayName = user.displayName;
 
-  try{ 
+  try {
 
-  await firebase.database().ref("userInfo/" + userID).set({
+    await firebase.database().ref("userInfo/" + userID).set({
 
-    gameName: gameName,
-    age: age,
-    email: userEmail,
-    profilePicture: userImage,
-    displayName: userDisplayName
+      gameName: gameName,
+      age: userAge,
+      email: userEmail,
+      profilePicture: userImage,
+      displayName: userDisplayName
 
 
-  });
+    });
 
-  console.log("Data sent!");
+    console.log("Data sent!");
 
-  window.location.href='index.html';
+    window.location.href = 'index.html';
 
-} catch(error) {
+  } catch (error) {
 
-  console.error(error);
-  alert("Failed to save data.")
-}
+    console.error(error);
+    alert("Failed to save data.")
+  }
 }

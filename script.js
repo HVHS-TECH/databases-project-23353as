@@ -34,7 +34,7 @@ firebase.auth().onAuthStateChanged(function(user){
 
 });
 
-function fb_logOut {
+function fb_logOut() {
   authenticationListener();
   firebase.auth().signOut();
   console.log("logged out")

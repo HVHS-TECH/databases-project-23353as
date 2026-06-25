@@ -8,6 +8,19 @@
 /*******************************************************/
 console.log("Running the game");
 
+let currentUserID = null;
+console.log("Running the game");
+firebase.auth().onAuthStateChanged(authStateChanged);
+
+function authStateChanged(user) {
+    if (user) {
+        currentUserID = user.uid;
+        console.log("Logged in user ID:", currentUserID);
+    } else {
+        currentUserID = null;
+        console.log("No user logged in. Scores will not be saved.");
+    }
+}
 
 // End game code
 function endGame(_player, _obstacle) {
@@ -15,11 +28,24 @@ function endGame(_player, _obstacle) {
     screenSelector = "end";
     player.remove();
     obstacles.removeAll();
-    // Put your database writes here:
 
 
+        if (currentUserID) {
+            const scoreRef =
+                firebase.database().ref("geodash/" + currentUserID);
 
-}
+            scoreRef.once("value").then((snapshot) => {
+                const data = snapshot.val();
+
+                if (!data || score > data.score) {
+                    scoreRef.set({
+                        score: score
+                    });
+                }
+            });
+        }
+    }
+
 
 
 
