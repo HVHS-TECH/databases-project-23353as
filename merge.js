@@ -10,6 +10,60 @@ let nextBallSize;
 
 const RANDOM_SIZE = [50, 70, 90];
 
+
+let currentUserID = null;
+console.log("Running the game");
+firebase.auth().onAuthStateChanged(authStateChanged);
+
+function authStateChanged(user) {
+    if (user) {
+        currentUserID = user.uid;
+        console.log("Logged in user ID:", currentUserID);
+    } else {
+        currentUserID = null;
+        console.log("No user logged in. Scores will not be saved.");
+    }
+}
+
+function saveHighScore() {
+
+    if (!currentUserID) {
+        console.log("No user logged in. Score not saved.");
+        return;
+    }
+
+    const scoreRef = firebase.database().ref("planetMerge/" + currentUserID);
+
+    scoreRef.once("value")
+        .then((snapshot) => {
+
+            const data = snapshot.val();
+
+            console.log("Current database data:", data);
+            console.log("Current score:", score);
+
+            if (!data || score > data.score) {
+
+                return scoreRef.set({
+                    score: score
+                });
+
+            } else {
+
+                console.log("Not a new high score.");
+
+            }
+
+        })
+        .then(() => {
+            console.log("High score saved!");
+        })
+        .catch((error) => {
+            console.error("Error saving score:", error);
+        });
+
+}
+
 //Preloads images
 function preload() {
     title = loadImage('Images/TITLE.png');
@@ -317,23 +371,26 @@ function draw() {
 
             //Ends the game when ball stays over the line for over 2 secs
             if (millis() - dangerStartTime > dangerDuration) {
-                gameState = "end";
-                allSprites.deleteAll();
 
+                gameState = "end";
+            
+                saveHighScore();   // <-- Save once here
+            
+                allSprites.deleteAll();
+            
                 //Creates the game over text
                 gameOverText = new Sprite(width / 2, height / 3, width / 1.5, height / 5, 'static');
                 gameOverText.img = gameOver;
                 gameOverText.scale = 0.4;
-
-                homeLocationX = width / 2.2
-                homeLocationY = height / 1.35
+            
+                homeLocationX = width / 2.2;
+                homeLocationY = height / 1.35;
                 homeRun();
-
-                //Creates a restart button
+            
                 restartButton = new Sprite(width / 1.9, height / 1.35, width / 2.24, height / 2.5, 'static');
                 restartButton.img = restart;
                 restartButton.scale = 0.2;
-
+            
             }
 
         }
