@@ -13,7 +13,19 @@ const RANDOM_SIZE = [50, 70, 90];
 
 let currentUserID = null;
 console.log("Running the game");
-firebase.auth().onAuthStateChanged(authStateChanged);
+firebase.auth().onAuthStateChanged(function(user){
+
+    if(user){
+
+        currentUserID = user.uid;
+
+    }else{
+
+        window.location.href = "login.html";
+
+    }
+
+});
 
 function authStateChanged(user) {
     if (user) {

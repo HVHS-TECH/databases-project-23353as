@@ -18,26 +18,43 @@ const HTML_OUTPUT = document.getElementById("databaseOutput");
 // This means it replaces the whole database with message:Hello World
 /**************************************************************/
 
-firebase.auth().onAuthStateChanged(function(user){
+firebase.auth().onAuthStateChanged(async function(user){
 
-  if(user){
-    document.getElementById("loggedOutNav").style.display = "none";
-    document.getElementById("loggedInNav").style.display = "flex";
+    if(user){
 
-    document.getElementById("navPfp").src = user.photoURL;
-  } else{
-    
-    document.getElementById("loggedOutNav").style.display = "block"
-    document.getElementById("loggedInNav").style.display = "none";
+        document.getElementById("loggedOutNav").style.display = "none";
+        document.getElementById("loggedInNav").style.display = "flex";
 
-  }
+        document.getElementById("navPfp").src = user.photoURL;
+
+        const snapshot = await firebase.database()
+            .ref("userInfo/" + user.uid)
+            .once("value");
+
+        if(!snapshot.exists()){
+
+            window.location.href = "login.html";
+
+        }
+
+    }
+    else{
+
+        document.getElementById("loggedOutNav").style.display = "block";
+        document.getElementById("loggedInNav").style.display = "none";
+
+    }
 
 });
 
 function fb_logOut() {
-  authenticationListener();
-  firebase.auth().signOut();
-  console.log("logged out")
+
+    firebase.auth().signOut().then(function(){
+
+        window.location.href = "index.html";
+
+    });
+
 }
 
 function loadLeaderboard(databaseName, outputID) {
@@ -80,4 +97,4 @@ function loadLeaderboard(databaseName, outputID) {
 }
 
 loadLeaderboard("planetMerge", "mergeLeaderboard");
-loadLeaderboard("geodash", "geoLeaderboard");
+loadLeaderboard("geoDash", "geoLeaderboard");

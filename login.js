@@ -1,3 +1,23 @@
+firebase.auth().onAuthStateChanged(async function(user){
+
+    if(!user){
+        return;
+    }
+
+    document.getElementById("userPfp").src = user.photoURL;
+
+    const snapshot = await firebase.database()
+        .ref("userInfo/" + user.uid)
+        .once("value");
+
+    if(snapshot.exists()){
+
+        window.location.href = "index.html";
+
+    }
+
+});
+
 function fb_login() {
 
   firebase.auth().onAuthStateChanged((user) => {

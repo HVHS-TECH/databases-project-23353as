@@ -8,7 +8,19 @@
 /*******************************************************/
 let currentUserID = null;
 console.log("Running the game");
-firebase.auth().onAuthStateChanged(authStateChanged);
+firebase.auth().onAuthStateChanged(function(user){
+
+    if(user){
+
+        currentUserID = user.uid;
+
+    }else{
+
+        window.location.href = "login.html";
+
+    }
+
+});
 
 function authStateChanged(user) {
     if (user) {
@@ -30,7 +42,7 @@ function endGame(_player, _obstacle) {
 
     if (currentUserID) {
         const scoreRef =
-            firebase.database().ref("geodash/" + currentUserID);
+            firebase.database().ref("geoDash/" + currentUserID);
 
         scoreRef.once("value").then((snapshot) => {
             const data = snapshot.val();
