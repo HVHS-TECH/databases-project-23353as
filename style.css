@@ -153,3 +153,16 @@ button:not(.submit-btn):hover {
   background: #422C6C;
   color: white;
 }
+
+.button-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #703764;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+}
+.button-link:hover {
+  background-color: #994e89;
+}

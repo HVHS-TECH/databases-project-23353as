@@ -40,3 +40,44 @@ function fb_logOut() {
   console.log("logged out")
 }
 
+function loadLeaderboard(databaseName, outputID) {
+
+  let leaderboardHTML = "<ol>";
+
+  firebase.database()
+      .ref(databaseName)
+      .orderByChild("score")
+      .limitToLast(10)
+      .once("value", function(snapshot) {
+
+          let results = [];
+
+          snapshot.forEach(function(child) {
+
+              results.push(child.val());
+
+          });
+
+          results.reverse();
+
+          for (let player of results) {
+
+              leaderboardHTML +=
+                  "<li>" +
+                  player.name +
+                  " - " +
+                  player.score +
+                  "</li>";
+
+          }
+
+          leaderboardHTML += "</ol>";
+
+          document.getElementById(outputID).innerHTML = leaderboardHTML;
+
+      });
+
+}
+
+loadLeaderboard("planetMerge", "mergeLeaderboard");
+loadLeaderboard("geodash", "geoLeaderboard");

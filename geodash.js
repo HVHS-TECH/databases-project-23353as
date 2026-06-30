@@ -6,8 +6,6 @@
 //
 // Written by Mr Britton
 /*******************************************************/
-console.log("Running the game");
-
 let currentUserID = null;
 console.log("Running the game");
 firebase.auth().onAuthStateChanged(authStateChanged);
@@ -30,21 +28,30 @@ function endGame(_player, _obstacle) {
     obstacles.removeAll();
 
 
-        if (currentUserID) {
-            const scoreRef =
-                firebase.database().ref("geodash/" + currentUserID);
+    if (currentUserID) {
+        const scoreRef =
+            firebase.database().ref("geodash/" + currentUserID);
 
-            scoreRef.once("value").then((snapshot) => {
-                const data = snapshot.val();
+        scoreRef.once("value").then((snapshot) => {
+            const data = snapshot.val();
 
-                if (!data || score > data.score) {
-                    scoreRef.set({
+            if (!data || score > data.score) {
+                const userInfoRef = firebase.database().ref("userInfo/" + currentUserID);
+
+                userInfoRef.once("value").then((snapshot) => {
+
+                    const userData = snapshot.val();
+
+                    return scoreRef.set({
+                        name: userData.gameName,
                         score: score
                     });
-                }
-            });
-        }
+
+                });
+            }
+        });
     }
+}
 
 
 

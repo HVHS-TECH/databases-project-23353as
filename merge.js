@@ -44,8 +44,17 @@ function saveHighScore() {
 
             if (!data || score > data.score) {
 
-                return scoreRef.set({
-                    score: score
+                const userInfoRef = firebase.database().ref("userInfo/" + currentUserID);
+
+                userInfoRef.once("value").then((snapshot) => {
+
+                    const userData = snapshot.val();
+
+                    return scoreRef.set({
+                        name: userData.gameName,
+                        score: score
+                    });
+
                 });
 
             } else {
@@ -373,24 +382,24 @@ function draw() {
             if (millis() - dangerStartTime > dangerDuration) {
 
                 gameState = "end";
-            
+
                 saveHighScore();   // <-- Save once here
-            
+
                 allSprites.deleteAll();
-            
+
                 //Creates the game over text
                 gameOverText = new Sprite(width / 2, height / 3, width / 1.5, height / 5, 'static');
                 gameOverText.img = gameOver;
                 gameOverText.scale = 0.4;
-            
+
                 homeLocationX = width / 2.2;
                 homeLocationY = height / 1.35;
                 homeRun();
-            
+
                 restartButton = new Sprite(width / 1.9, height / 1.35, width / 2.24, height / 2.5, 'static');
                 restartButton.img = restart;
                 restartButton.scale = 0.2;
-            
+
             }
 
         }
